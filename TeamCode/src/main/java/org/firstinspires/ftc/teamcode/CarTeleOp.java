@@ -15,7 +15,7 @@ public class CarTeleOp extends LinearOpMode{
 
     DcMotor Engine;
     Servo turnWheel;
-    double leftY, rightupX, rightdownX;
+    double leftY, rightupX;
     @Override
     public void runOpMode(){
 
@@ -37,13 +37,18 @@ public class CarTeleOp extends LinearOpMode{
             leftY = Range.clip(gamepad1.right_stick_y, -1.0, 1.0);
             //rightdownX = Range.clip(gamepad1.right_stick_x, 0, .5);
 
-            while (gamepad1.b == true && rightupX <= 0.6){
+            if (gamepad1.dpad_right == true && 0.0<= rightupX && rightupX <= 0.6){
 
-                rightupX += 1;
+                rightupX += 0.1;
             }
-            while (!gamepad1.b && rightupX >= 0.0){
-                rightupX = rightupX-1;
+
+            if (gamepad1.dpad_left == true && rightupX >= 0.0 && rightupX <= 0.6){
+                rightupX = rightupX - 0.1;
             }
+            if (!gamepad1.dpad_left && !gamepad1.dpad_right){
+                rightupX = 0.3;
+            }
+
             Engine.setPower(-leftY);
             turnWheel.setPosition(rightupX);
             //turnWheel.setPosition(rightdownX);

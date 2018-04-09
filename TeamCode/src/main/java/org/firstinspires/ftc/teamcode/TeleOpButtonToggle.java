@@ -17,7 +17,7 @@
 public class TeleOpButtonToggle extends LinearOpMode {
 
     private Servo rightArm, leftArm, UpperRightArm, UpperLeftArm, JewelArm;
-    private DcMotor LFMotor, RFMotor,LiftMotor, LiftMotor2;
+    private DcMotor LFMotor, RFMotor;
 
     MyGamepad gamepad = new MyGamepad();
 
@@ -29,8 +29,8 @@ public class TeleOpButtonToggle extends LinearOpMode {
         LFMotor = hardwareMap.dcMotor.get("LeftMotors");
         RFMotor = hardwareMap.dcMotor.get("RightMotors");
 
-        LiftMotor = hardwareMap.dcMotor.get("DS");
-        LiftMotor2 = hardwareMap.dcMotor.get("DS2");
+      //  LiftMotor = hardwareMap.dcMotor.get("DS");
+        //LiftMotor2 = hardwareMap.dcMotor.get("DS2");
         rightArm = hardwareMap.servo.get("RA");
         UpperRightArm = hardwareMap.servo.get("URA");
         leftArm = hardwareMap.servo.get("LA");
@@ -38,11 +38,11 @@ public class TeleOpButtonToggle extends LinearOpMode {
         JewelArm = hardwareMap.servo.get("JewelArm");
 
         RFMotor.setDirection(DcMotor.Direction.REVERSE);
-        LiftMotor2.setDirection(DcMotor.Direction.REVERSE);
+        //LiftMotor2.setDirection(DcMotor.Direction.REVERSE);
 
         LFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RFMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LiftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //LiftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         telemetry.addData("Mode", "Waiting");
@@ -62,9 +62,7 @@ public class TeleOpButtonToggle extends LinearOpMode {
                 //set arms open
                 rightArm.setPosition(0.2);
                 leftArm.setPosition(0.3);
-                telemetry.addData("Upper Left Position", UpperLeftArm.getPosition());
-                telemetry.addData("Upper Left Direction", UpperLeftArm.getDirection());
-                telemetry.update();
+
 
             }
             else if (!gamepad.a(gamepad1.a)) {
@@ -76,15 +74,23 @@ public class TeleOpButtonToggle extends LinearOpMode {
 
             if (gamepad.b(gamepad1.b)) {
                 //set arms open
-                UpperRightArm.setPosition(0.3);
+                UpperRightArm.setPosition(0.9);
 
                 UpperLeftArm.setPosition(-1.0);
+
+                telemetry.addData("Upper Right Position", UpperRightArm.getPosition());
+               // telemetry.addData("Upper Left Direction", UpperLeftArm.getDirection());
+                telemetry.update();
             }
             else if (!gamepad.b(gamepad1.b)) {
                 //set arms closed
-                UpperRightArm.setPosition(0.2);
+                UpperRightArm.setPosition(0.6);
 
                 UpperLeftArm.setPosition(0.2);
+
+                telemetry.addData("Upper Right Position", UpperRightArm.getPosition());
+               // telemetry.addData("Upper Left Direction", UpperLeftArm.getDirection());
+                telemetry.update();
             }
             //Tells what button b should do on whichever gamepad
 
@@ -107,7 +113,7 @@ public class TeleOpButtonToggle extends LinearOpMode {
             else if(!gamepad.leftBumper2(gamepad1.left_bumper)){
                 JewelArm.setPosition(.29);
             }
-            if (gamepad.d_padUp(gamepad1.dpad_up)) {
+          /*  if (gamepad.d_padUp(gamepad1.dpad_up)) {
 
                 LFMotor.setPower(0.80);
                 RFMotor.setPower(.80);
@@ -128,16 +134,14 @@ public class TeleOpButtonToggle extends LinearOpMode {
                 RFMotor.setPower(0);
             }
 
-
+*/
                 double leftJoystickStraight = Range.clip(-gamepad1.left_stick_y, -1, 1);
                 double rightJoystick = Range.clip(-gamepad1.right_stick_y, -1, 1);
-                LiftMotor.setPower(leftJoystickStraight);
-                LiftMotor2.setPower(rightJoystick);
 
-                telemetry.addData("LBmotor", LFMotor.getPower());
-                telemetry.addData("RFmotor", RFMotor.getPower());
-
-
+            LFMotor.setPower(leftJoystickStraight);
+            RFMotor.setPower(rightJoystick);
+                //LiftMotor.setPower(leftJoystickStraight);
+                //LiftMotor2.setPower(rightJoystick);
             idle();
 
         }

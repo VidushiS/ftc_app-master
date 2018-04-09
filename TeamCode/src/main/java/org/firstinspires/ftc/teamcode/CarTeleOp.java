@@ -13,13 +13,14 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name = "Black Car", group = "Exercises")
 public class CarTeleOp extends LinearOpMode{
 
-    DcMotor Engine;
+    DcMotor Engine, Engine2;
     Servo turnWheel;
-    double leftY, rightupX;
+    double leftY, rightupX, rightY;
     @Override
     public void runOpMode(){
 
         Engine = hardwareMap.dcMotor.get("Engine");
+        Engine2 = hardwareMap.dcMotor.get("Engine2");
         turnWheel = hardwareMap.servo.get("turnWheel");
 
         telemetry.addData("Mode", "Waiting");
@@ -35,6 +36,7 @@ public class CarTeleOp extends LinearOpMode{
         while (opModeIsActive()) {
 
             leftY = Range.clip(gamepad1.right_stick_y, -1.0, 1.0);
+            rightY = Range.clip(gamepad1.right_stick_y, -1.0, 1.0);
             //rightdownX = Range.clip(gamepad1.right_stick_x, 0, .5);
 
             if (gamepad1.dpad_right == true && 0.0<= rightupX && rightupX <= 0.6){
@@ -50,6 +52,7 @@ public class CarTeleOp extends LinearOpMode{
             }
 
             Engine.setPower(-leftY);
+            Engine2.setPower(leftY);
             turnWheel.setPosition(rightupX);
             //turnWheel.setPosition(rightdownX);
 

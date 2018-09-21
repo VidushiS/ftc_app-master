@@ -235,7 +235,7 @@ public class MyGamepad{
         return buttonPressedD_padRIGHT;
     }
 
-    public boolean right_Trigger(boolean gamepad){
+    public boolean right_Bumper(boolean gamepad){
 
         if (gamepad){
             if(!rightTriggerPressed){

@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.Range;
 public class MechanumDrive extends LinearOpMode {
 
     DcMotor LFMotor, RFMotor, RBMotor, LBMotor;
-    double leftY, leftX;
+    double leftY, rightX, leftX;
 
     MyGamepad gamepad = new MyGamepad();
     public void runOpMode(){
@@ -41,23 +41,23 @@ public class MechanumDrive extends LinearOpMode {
         telemetry.update();
 
         while(opModeIsActive()){
-            if(gamepad.rightBumper2(gamepad1.right_bumper)){
-                leftY = (Range.clip(gamepad1.left_stick_y, -1.0, 1.0));
-                leftX = (Range.clip(gamepad1.left_stick_x, -1.0, 1.0));
+            if(gamepad.right_Bumper(gamepad1.right_bumper)){
+                leftY = (Range.clip(gamepad1.left_stick_y, -.2, .2));
+                rightX = (Range.clip(gamepad1.right_stick_y, -.2, .2));
 
                 LFMotor.setPower(leftY);
-                RFMotor.setPower(leftX);
-                LBMotor.setPower(leftX);
+                RFMotor.setPower(rightX);
+                LBMotor.setPower(rightX);
                 RBMotor.setPower(leftY);
             }
             else{
                 leftY = (Range.clip(gamepad1.left_stick_y, -1.0, 1.0));
-                leftX = (Range.clip(gamepad1.left_stick_x, -1.0, 1.0));
+                rightX = (Range.clip(gamepad1.right_stick_y, -1.0, 1.0));
 
                 LFMotor.setPower(leftY);
-                RFMotor.setPower(leftY);
-                LBMotor.setPower(leftX);
-                RBMotor.setPower(leftX);
+                RFMotor.setPower(rightX);
+                LBMotor.setPower(leftY);
+                RBMotor.setPower(rightX);
             }
 
         }

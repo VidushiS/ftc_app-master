@@ -12,16 +12,19 @@ import java.util.Timer;
 
 public class HardwareInit {
     DcMotor LFMotor, RFMotor, LBMotor, RBMotor, PulleyMotor;
-
+    GyroSensor VexGyro;
     public void intHardware(LinearOpMode op){
         LFMotor = op.hardwareMap.dcMotor.get("LFMotor");
         RFMotor = op.hardwareMap.dcMotor.get("RFMotor");
         LBMotor = op.hardwareMap.dcMotor.get("LBMotor");
         RBMotor = op.hardwareMap.dcMotor.get("RBMotor");
+        VexGyro = op.hardwareMap.gyroSensor.get("VexGyro");
         PulleyMotor = op.hardwareMap.dcMotor.get("PulleyMotor");
 
         RFMotor.setDirection(DcMotor.Direction.REVERSE);
         RBMotor.setDirection(DcMotor.Direction.REVERSE);
+
+        VexGyro.calibrate();
 
     }
 }
